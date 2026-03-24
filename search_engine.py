@@ -11,7 +11,7 @@ class ImageSearchEngine:
         self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32")
         self.processor = AutoProcessor.from_pretrained("openai/clip-vit-base-patch32")
         self.index = faiss.read_index(index_path)
-        self.dataset = load_dataset("Donghyun99/Stanford-Cars")["train"]
+        #self.dataset = load_dataset("Donghyun99/Stanford-Cars")["train"]
 
     def encode_image(self, image):
         inputs = self.processor(images=image, return_tensors="pt")
@@ -30,14 +30,14 @@ class ImageSearchEngine:
 
         return embedding
 
-    def image_to_base64(self, img):
-        # sécurité : convertir en RGB
-        img = img.convert("RGB")
-
-        buffer = io.BytesIO()
-        img.save(buffer, format="JPEG")
-
-        return base64.b64encode(buffer.read()).decode("utf-8")
+    # def image_to_base64(self, img):
+    #     # sécurité : convertir en RGB
+    #     img = img.convert("RGB")
+    #
+    #     buffer = io.BytesIO()
+    #     img.save(buffer, format="JPEG")
+    #
+    #     return base64.b64encode(buffer.read()).decode("utf-8")
 
     def search(self, image, k=5):
         query = self.encode_image(image)
@@ -53,7 +53,7 @@ class ImageSearchEngine:
             results.append({
                 "index": int(i),
                 "distance": float(d),
-                "image": self.image_to_base64(img)
+                "image": f"/images/{i}.jpg"
             })
             print(results)
 
