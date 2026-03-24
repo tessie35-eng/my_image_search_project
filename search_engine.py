@@ -1,7 +1,7 @@
 import torch
 import numpy as np
 import faiss
-from transformers import AutoProcessor, CLIPModel
+from transformers import AutoProcessor, CLIPModel, AutoTokenizer
 from datasets import load_dataset
 import base64
 import io
@@ -12,6 +12,7 @@ class ImageSearchEngine:
         self.processor = AutoProcessor.from_pretrained("openai/clip-vit-base-patch32")
         self.index = faiss.read_index(index_path)
         #self.dataset = load_dataset("Donghyun99/Stanford-Cars")["train"]
+        #self.tokenizer = AutoTokenizer.from_pretrained("openai/clip-vit-base-patch32")
 
     def encode_image(self, image):
         inputs = self.processor(images=image, return_tensors="pt")
@@ -46,8 +47,8 @@ class ImageSearchEngine:
 
         results = []
         for i, d in zip(indices[0], distances[0]):
-            img = self.dataset[int(i)]["image"]
-            print(img)
+            #img = self.dataset[int(i)]["image"]
+            #print(img)
             print(i)
             print(d)
             results.append({
@@ -58,5 +59,7 @@ class ImageSearchEngine:
             print(results)
 
         return results
+
+
 
         # return distances, indices

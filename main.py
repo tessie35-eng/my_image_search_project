@@ -4,11 +4,15 @@ import io
 import requests
 from fastapi.staticfiles import StaticFiles
 from search_engine import ImageSearchEngine
+import os
+
 
 app = FastAPI()
 
 # Sert les images
-app.mount("/images", StaticFiles(directory="../images"), name="images")
+images_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "images")
+print("Serving images from:", images_path)
+app.mount("/images", StaticFiles(directory="images"), name="images")
 
 engine = ImageSearchEngine("index_standford_cars.faiss")
 
@@ -42,3 +46,4 @@ async def search_image(
         # "indices": indices.tolist(),
         # "distances": distances.tolist()
     }
+
