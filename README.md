@@ -3,6 +3,8 @@
 This project implements a Content-Based Image Retrieval engine using **CLIP embeddings** and **FAISS**.  
 Users can search for images by **uploading** them or entering a **URL** via a **Streamlit** interface.
 
+ ![Top 5 Example](img/ex2.png)
+
 ## Installation
 
 1. Cloner the project :
@@ -30,5 +32,6 @@ Users can search for images by **uploading** them or entering a **URL** via a **
    ```
    streamlit run app.py
    ```
-   
+
+  
    
