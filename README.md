@@ -14,24 +14,24 @@ Users can search for images by **uploading** them or entering a **URL** via a **
   ```
 2. Create a new environment :
   ```
-  conda create -n cbir_env python=3.10
-  conda activate cbir_env
-  pip install -r requirements.txt
+conda create -n cbir_env python=3.10
+conda activate cbir_env
+pip install -r requirements.txt
   ```
 3. Download Dataset :
-   Dataset is from Hugging Face but you can download them
-    ```
-    python download_image.py
-    ```
-4. Run FASTAPI :
-   ```
-   uvicorn main:app --reload
-   ```
+Dataset is from Hugging Face but you can download them
+```
+python download_image.py
+```
+5. Run FASTAPI :
+```
+uvicorn main:app --reload
+```
 
-5. Run the streamlit interface :
-   ```
-   streamlit run app.py
-   ```
+6. Run the streamlit interface :
+```
+streamlit run app.py
+```
 
   
    
