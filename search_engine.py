@@ -18,15 +18,13 @@ class ImageSearchEngine:
         inputs = self.processor(images=image, return_tensors="pt")
 
         with torch.no_grad():
-            features = self.model.get_image_features(**inputs)
+            outputs = self.model.get_image_features(**inputs)
+            features = outputs.pooler_output
 
-        embedding = features[0].numpy().astype("float32")
+        embedding = features.detach().cpu().numpy().astype("float32")
+        #embedding = embedding[0]
+        embedding = np.array(embedding).astype("float32")
         print(embedding.shape)
-        # embedding = embedding.squeeze(1)
-        embedding = embedding[0].mean(axis=0)
-        print(embedding.shape)
-        #IMPORTANT
-        embedding = embedding.reshape(1, -1)
         faiss.normalize_L2(embedding)
 
         return embedding
@@ -42,7 +40,9 @@ class ImageSearchEngine:
 
     def search(self, image, k=5):
         query = self.encode_image(image)
-
+        print("Index total vectors:", self.index.ntotal)
+        print("Index dimension:", self.index.d)
+        print("Query shape:", query.shape)
         distances, indices = self.index.search(query, k)
 
         results = []
