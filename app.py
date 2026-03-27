@@ -7,7 +7,7 @@ mode = st.radio("Select the input type", ["Upload", "URL"])
 
 response = None
 
-# 📁 Upload
+#Upload
 if mode == "Upload":
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png"])
 
@@ -19,7 +19,7 @@ if mode == "Upload":
             files={"file": uploaded_file.getvalue()}
         )
 
-# 🌐 URL
+#URL
 else:
     image_url = st.text_input("Input an image URL")
 
@@ -31,7 +31,7 @@ else:
             data={"image_url": image_url}
         )
 
-# 🎯 Résultats
+# Results
 if response:
     results = response.json()["results"]
 
